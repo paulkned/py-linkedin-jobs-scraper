@@ -332,26 +332,43 @@ class AuthenticatedStrategy(Strategy):
                     # Extract criteria
                     debug(tag, 'Evaluating selectors', [Selectors.criteria])
 
-                    job_seniority_level, job_function, job_employment_type, job_industries = driver.execute_script(
+                    job_employment_type, job_industries = driver.execute_script(
                         r'''
                             const nodes = document.querySelectorAll(arguments[0]);
 
                             const criteria = [
-                                "Seniority Level",
-                                "Employment Type",
-                                "Industry",
-                                "Job Functions",
+                                "briefcase-icon",
+                                "company-icon"
+                            ];
+                            
+                            const employmentTypes = [
+                                'Full-time', 
+                                'Part-time', 
+                                'Contract', 
+                                'Temporary', 
+                                'Volunteer', 
+                                'Internship', 
+                                'Other'
                             ];
 
                             return Array.from(criteria.map(c => {
-                                const el = Array.from(nodes).find(node => node.innerText.trim() === c);
+                                const icon = Array.from(nodes).find(node => node.querySelector(`[type="${c}"]`) !== null);
 
-                                if (el && el.nextElementSibling) {
-                                    const sibling = el.nextElementSibling;
-                                    return sibling.innerText
-                                        .replace(/[\s]{2,}/g, ", ")
-                                        .replace(/[\n\r]+/g, " ")
-                                        .trim();
+                                if (icon) {
+                                    let content = icon.querySelector("span").innerText.trim();
+                                    contentParts = content.split("·");
+                                    content = "";
+                                        
+                                    for (let i = 0; i < contentParts.length; i++) {
+                                        contentPart = contentParts[i].trim();
+                                        if (c == "company-icon" && contentPart.substring(contentPart.length - 10) == " employees"){
+                                            content = contentPart;
+                                        } else if (c == "briefcase-icon" && employmentTypes.includes(contentPart)) {
+                                            content = contentPart;
+                                        }
+                                    }
+                                    
+                                    return content;
                                 }
                                 else {
                                     return "";
@@ -384,8 +401,8 @@ class AuthenticatedStrategy(Strategy):
                     apply_link='',
                     description=job_description,
                     description_html=job_description_html,
-                    seniority_level=job_seniority_level,
-                    job_function=job_function,
+                    seniority_level='',
+                    job_function='',
                     employment_type=job_employment_type,
                     industries=job_industries)
 
