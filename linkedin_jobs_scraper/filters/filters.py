@@ -34,4 +34,6 @@ class ExperienceLevelFilters(Enum):
 
 
 class RemoteFilters(Enum):
-    REMOTE = 'true'
+    ON_SITE = '1'
+    REMOTE = '2'
+    HYBRID = '3'

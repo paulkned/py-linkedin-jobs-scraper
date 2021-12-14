@@ -97,6 +97,7 @@ class LinkedinScraper:
 
         if len(location) > 0:
             params['location'] = location
+            params['distance'] = 5
 
         if query.options.filters is not None:
             if query.options.filters.company_jobs_url is not None:
@@ -124,8 +125,9 @@ class LinkedinScraper:
                 debug(tag, 'Applied experience filters', query.options.filters.experience)
 
             # Remote filter supported only with authenticated session (for now)
-            if query.options.filters.remote is not None and Config.LI_AT_COOKIE:
-                params['f_WRA'] = query.options.filters.remote.value
+            if len(query.options.filters.remote) > 0:
+                filters = ','.join(e.value for e in query.options.filters.remote)
+                params['f_WT'] = filters
                 debug(tag, 'Applied remote filter', query.options.filters.remote)
 
         parsed = parsed._replace(query=urlencode(params))
