@@ -32,7 +32,7 @@ class Selectors(NamedTuple):
     detailsPanel = '.jobs-search__job-details--container'
     detailsTop = '.jobs-details-top-card'
     details = '.jobs-details__main-content'
-    criteria = '.jobs-box__group h3'
+    criteria = '.jobs-unified-top-card__job-insight'
     pagination = '.jobs-search-two-pane__pagination'
     paginationNextBtn = 'li[data-test-pagination-page-btn].selected + li'
     paginationBtn = lambda index: f'li[data-test-pagination-page-btn="{index}"] button'
