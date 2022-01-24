@@ -43,6 +43,7 @@ class QueryFilters(__Base):
         self.type = type
         self.experience = experience
         self.remote = remote
+        self.geo_id = geo_id
 
     def validate(self):
         if self.company_jobs_url is not None:
