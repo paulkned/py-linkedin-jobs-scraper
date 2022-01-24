@@ -20,7 +20,8 @@ class QueryFilters(__Base):
                  time: TimeFilters = None,
                  type: Union[TypeFilters, List[TypeFilters]] = None,
                  experience: Union[ExperienceLevelFilters, List[ExperienceLevelFilters]] = None,
-                 remote: Union[RemoteFilters, List[RemoteFilters]] = None):
+                 remote: Union[RemoteFilters, List[RemoteFilters]] = None,
+                 geo_id: int = None):
 
         super().__init__()
 
@@ -72,6 +73,9 @@ class QueryFilters(__Base):
         if any((not isinstance(e, RemoteFilters) for e in self.remote)):
             raise ValueError('Parameter experience must be of type '
                              'Union[RemoteFilters, List[RemoteFilters]]')
+
+        if self.geo_id is not None and not isinstance(self.geo_id, str):
+            raise ValueError('Parameter geo_id must be of type str')
 
 
 class QueryOptions(__Base):

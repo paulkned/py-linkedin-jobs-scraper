@@ -97,7 +97,7 @@ class LinkedinScraper:
 
         if len(location) > 0:
             params['location'] = location
-            params['distance'] = 5
+            params['distance'] = 0
 
         if query.options.filters is not None:
             if query.options.filters.company_jobs_url is not None:
@@ -129,6 +129,11 @@ class LinkedinScraper:
                 filters = ','.join(e.value for e in query.options.filters.remote)
                 params['f_WT'] = filters
                 debug(tag, 'Applied remote filter', query.options.filters.remote)
+
+            if query.options.filters.geo_id is not None:
+                params['geoId'] = query.options.filters.geo_id
+                params['f_PP'] = query.options.filters.geo_id
+                debug(tag, 'Applied geo ID filter', query.options.filters.geo_id)
 
         parsed = parsed._replace(query=urlencode(params))
         return parsed.geturl()
