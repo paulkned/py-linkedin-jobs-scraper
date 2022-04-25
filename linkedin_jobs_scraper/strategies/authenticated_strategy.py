@@ -357,7 +357,7 @@ class AuthenticatedStrategy(Strategy):
                                         contentPart = contentParts[i].trim();
                                         if (c == "company-icon" && contentPart.substring(contentPart.length - 10) == " employees"){
                                             content = contentPart;
-                                        } else if (c == "briefcase-icon" && employmentTypes.includes(contentPart)) {
+                                        } else if (c == "job" && employmentTypes.includes(contentPart)) {
                                             content = contentPart;
                                         }
                                     }
