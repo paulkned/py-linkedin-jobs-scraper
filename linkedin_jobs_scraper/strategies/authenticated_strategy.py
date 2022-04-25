@@ -20,7 +20,7 @@ from ..exceptions import InvalidCookieException
 
 
 class Selectors(NamedTuple):
-    container = '.jobs-search-two-pane__layout'
+    container = '[class*="jobs-search-two-pane"]'
     chatPanel = '.msg-overlay-list-bubble'
     jobs = 'div.job-card-container'
     links = 'a.job-card-container__link'
@@ -332,7 +332,7 @@ class AuthenticatedStrategy(Strategy):
 
                             const criteria = [
                                 "briefcase-icon",
-                                "company-icon"
+                                "job"
                             ];
                             
                             const employmentTypes = [
