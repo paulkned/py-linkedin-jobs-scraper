@@ -331,8 +331,8 @@ class AuthenticatedStrategy(Strategy):
                             const nodes = document.querySelectorAll(arguments[0]);
 
                             const criteria = [
-                                "briefcase-icon",
-                                "job"
+                                "job",
+                                "company-icon"
                             ];
                             
                             const employmentTypes = [
