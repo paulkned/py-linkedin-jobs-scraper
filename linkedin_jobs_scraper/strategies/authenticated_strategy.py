@@ -21,6 +21,7 @@ from ..exceptions import InvalidCookieException
 
 class Selectors(NamedTuple):
     container = '[class*="jobs-search-two-pane"]'
+    noJobsContainer = '.jobs-search-two-pane__no-results-banner'
     chatPanel = '.msg-overlay-list-bubble'
     jobs = 'div.job-card-container'
     links = 'a.job-card-container__link'
@@ -208,6 +209,11 @@ class AuthenticatedStrategy(Strategy):
         try:
             WebDriverWait(driver, 5).until(ec.presence_of_element_located((By.CSS_SELECTOR, Selectors.container)))
         except BaseException as e:
+            warn(tag, 'No jobs found, skip')
+            return
+
+        # No jobs found container present
+        if len(driver.find_elements(By.CSS_SELECTOR, Selectors.noJobsContainer)) > 0:
             warn(tag, 'No jobs found, skip')
             return
 
