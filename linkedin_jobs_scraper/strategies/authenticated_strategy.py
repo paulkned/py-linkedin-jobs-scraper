@@ -21,7 +21,7 @@ from ..exceptions import InvalidCookieException
 
 class Selectors(NamedTuple):
     container = '[class*="jobs-search-two-pane"]'
-    noJobsContainer = '.jobs-search-two-pane__no-results-banner'
+    noJobsContainer = '.jobs-search-no-results-banner'
     chatPanel = '.msg-overlay-list-bubble'
     jobs = 'div.job-card-container'
     links = 'a.job-card-container__link'
